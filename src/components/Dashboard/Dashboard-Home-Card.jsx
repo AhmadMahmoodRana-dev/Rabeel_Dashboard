@@ -5,36 +5,82 @@ const DashboardHomeCards = () => {
 const cards = [
   {
     id:1,
-    title: 'Total active users ',
-    icon: <BiDollarCircle size={20} />,
-    value: '18,765',
-    description: '+2.6% last 7 days',
-    color:"#00a76f",
-    data1:["1","2","3","4","5"]
-    // percentage: "+16.24%" ,
+    title1: 'Cash Sale ',
+    title2: 'Last M Sale ',
+    title3: 'Today Sale ',
+    title4: 'Last D Sale ',
+    data1: '20,000 ',
+    data2: '20,000 ',
+    data3: '2000 ',
+    data4: '2000 ',
+    percent1: '+2.6% ',
+    percent2: '+2.6% ',
 
   },
   {
     id:2,
-    title: 'Total installed',
-    icon: <BiShoppingBag size={20} />,
-    value: '4876',
-    description: '+2.6% last 7 days',
-    color:"#00a76f",
-    data1:["1","2","3","4","5"]
-    // percentage: "+16.24%",
-
+    title1: 'B2 Sale ',
+    title2: 'Last M Sale ',
+    title3: 'Today Sale ',
+    title4: 'Last D Sale ',
+    data1: '20,000 ',
+    data2: '20,000 ',
+    data3: '2000 ',
+    data4: '2000 ',
+    percent1: '+2.6% ',
+    percent2: '+2.6%'
   },
   {
     id:3,
-    title: 'Total downloads',
-    icon: <BiUserCircle size={20} />,
-    value: '678',
-    description: '+2.6% last 7 days',
-    color:"#00a76f",
-    data1:["1","2","3","4","5"]
-    // percentage: "+16.24%",
-
+   title1: 'Install Sale ',
+    title2: 'Last M Sale ',
+    title3: 'Today Sale ',
+    title4: 'Last D Sale ',
+    data1: '20,000 ',
+    data2: '20,000 ',
+    data3: '2000 ',
+    data4: '2000 ',
+    percent1: '+2.6% ',
+    percent2: '+2.6%'
+  },
+  {
+    id:4,
+   title1: 'Install Sale ',
+    title2: 'Last M Sale ',
+    title3: 'Today Sale ',
+    title4: 'Last D Sale ',
+    data1: '20,000 ',
+    data2: '20,000 ',
+    data3: '2000 ',
+    data4: '2000 ',
+    percent1: '+2.6% ',
+    percent2: '+2.6%'
+  },
+  {
+    id:5,
+   title1: 'Install Sale ',
+    title2: 'Last M Sale ',
+    title3: 'Today Sale ',
+    title4: 'Last D Sale ',
+    data1: '20,000 ',
+    data2: '20,000 ',
+    data3: '2000 ',
+    data4: '2000 ',
+    percent1: '+2.6% ',
+    percent2: '+2.6%'
+  },
+  {
+    id:6,
+   title1: 'Install Sale ',
+    title2: 'Last M Sale ',
+    title3: 'Today Sale ',
+    title4: 'Last D Sale ',
+    data1: '20,000 ',
+    data2: '20,000 ',
+    data3: '2000 ',
+    data4: '2000 ',
+    percent1: '+2.6% ',
+    percent2: '+2.6%'
   },
 ]
 

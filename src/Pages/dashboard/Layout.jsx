@@ -11,13 +11,13 @@ import { Context } from "@/context/Context";
 import MobileNavbar from "@/components/Dashboard/MobileNavbar";
 import Navbar from "@/components/Dashboard/Navbar";
 import { FaChevronRight } from "react-icons/fa";
+import Overview from "@/components/Dashboard/sidebar/Overview";
 
 export default function Layout({ children }) {
   const {
     onMobile,
     setOnMobile,
     location,
-    OverViewTable,
     menuItems,
     isOpen,
     setIsOpen,
@@ -64,56 +64,13 @@ export default function Layout({ children }) {
           }  relative h-[90vh]`}
         >
           {/* Overview Section */}
-          <div
-            className={`flex flex-col gap-4 ${
-              onMobile ? "px-4" : "px-1"
-            } py-4 mt-3`}
-          >
-            {onMobile && (
-              <h1 className="text-gray-500 text-[.8rem] font-semibold tracking-wide ml-2">
-                OVERVIEW
-              </h1>
-            )}
-            <ul className="flex flex-col gap-1">
-              {OverViewTable.map((item, index) => {
-                const isActive = location.pathname === item.url;
-                return (
-                  <Link
-                    to={item.url}
-                    key={index}
-                    className={`flex-wrap list-none ${
-                      isActive
-                        ? "text-[#00a76f] bg-[#00a76f19] hover:bg-[#00a76f3b]"
-                        : "text-gray-500 text-sm hover:bg-slate-100"
-                    } py-2 px-2 rounded-md items-center gap-3 ${
-                      onMobile
-                        ? "flex justify-start"
-                        : "flex flex-col justify-center leading-3"
-                    }`}
-                  >
-                    <item.icon
-                      className={`${onMobile ? "text-2xl" : "text-xl"} ${
-                        isActive ? "text-[#00a76f]" : "text-gray-500"
-                      }`}
-                    />
-                    <p
-                      className={`${
-                        onMobile ? "text-md" : "text-[12px]"
-                      } font-semibold`}
-                    >
-                      {item.title}
-                    </p>
-                  </Link>
-                );
-              })}
-            </ul>
-          </div>
+          <Overview />
 
           {/* Management */}
 
           {onMobile && (
             <h1 className="text-gray-500 text-[.8rem] font-semibold tracking-wide ml-2 px-4">
-              Management
+              MANAGEMENT
             </h1>
           )}
 
@@ -177,7 +134,7 @@ export default function Layout({ children }) {
                       <li key={index} className="w-full">
                         <Link
                           to={item.url}
-                          className="block  py-2 text-sm text-gray-600 hover:bg-slate-200 rounded-md hover:text-gray-900 ml-2"
+                          className="block  py-2 text-sm text-gray-600 hover:bg-[#919eab14] rounded-md hover:text-gray-900 ml-2"
                         >
                           {item.label}
                         </Link>
@@ -194,9 +151,9 @@ export default function Layout({ children }) {
           <div className="px-4 relative">
             {/* DROPDOWN HEADER */}
             <div
-              className={`flex mt-2 gap-11 items-center justify-between ${menuState["root"] ? "bg-[#919eab14]" : ""} ${
-                onMobile ? "px-4" : "px-2"
-              } py-2 rounded-md cursor-pointer`}
+              className={`flex mt-2 gap-11 items-center justify-between ${
+                menuState["root"] ? "bg-[#919eab14]" : ""
+              } ${onMobile ? "px-4" : "px-2"} py-2 rounded-md cursor-pointer`}
               onClick={() => toggleMenuState("root")}
             >
               <div className="flex items-center justify-center flex-wrap gap-3">
@@ -223,41 +180,59 @@ export default function Layout({ children }) {
             {/* DROPDOWN MENU */}
             {menuState["root"] && (
               <div
-                className={`absolute top-full left-0 mt-2 w-56 ${onMobile ? "" : "left-[48px] top-[-20%] bg-[#919eab14]"}  rounded-md ml-8  z-10`}
+                className={`absolute  left-0 mt-2  ${
+                  onMobile
+                    ? "w-56"
+                    : "  left-[48px] top-[-60%] w-[10rem] bg-[#919eab14]"
+                }  rounded-md ml-8  z-10`}
               >
-                <ul className="ml-2 border-l-2 border-gray-300 ">
+                <ul
+                  className={`ml-2 rounded-md ${
+                    onMobile ? " border-l-2 border-gray-300" : null
+                  }`}
+                >
                   {menuItems.map((item, index) => {
                     const path = `root-${index}`; // Unique path for each menu item
 
                     return (
                       <li key={index} className="relative">
                         <div
-                          className="flex items-center  cursor-pointer py-2"
+                          className="flex items-center cursor-pointer py-2"
                           onClick={(e) => {
                             e.stopPropagation(); // Prevent closing the parent dropdown
                             if (item.subItems) toggleMenuState(path);
                           }}
                         >
-                        <hr className="w-[10px]"/>
+                          {onMobile ? <hr className="w-[10px]" /> : null}
                           <Link
                             to={item.url}
-                            className={`text-sm pl-1 text-gray-600 ${menuState[path] ? "bg-[#919eab14]" : ""} hover:bg-[#919eab14] py-2 hover:text-gray-900 rounded-md w-[85%] flex justify-between pr-4 items-center`}
+                            className={`text-sm pl-1 text-gray-600 ${
+                              menuState[path] ? "bg-[#919eab14]" : ""
+                            } hover:bg-[#919eab14] py-2 hover:text-gray-900 rounded-md ${
+                              onMobile ? "w-[85%]" : "w-[95%]"
+                            } flex justify-between pr-4 items-center`}
                           >
                             {item.label}
-                          {item.subItems && (
-                            <span className="ml-3">
-                              {menuState[path] ? (
-                                <IoIosArrowUp className="text-gray-500" />
-                              ) : (
-                                <IoIosArrowDown className="text-gray-500" />
-                              )}
-                            </span>
-                          )}
+                            {item.subItems && (
+                              <span className="ml-3">
+                                {menuState[path] ? (
+                                  <IoIosArrowUp className="text-gray-500" />
+                                ) : (
+                                  <IoIosArrowDown className="text-gray-500" />
+                                )}
+                              </span>
+                            )}
                           </Link>
                         </div>
                         {/* Render Subitems */}
                         {menuState[path] && item.subItems && (
-                          <ul className="ml-4 border-l-2 border-gray-300">
+                          <ul
+                            className={`${
+                              onMobile
+                                ? "ml-4 border-l-2 border-gray-300"
+                                : "absolute left-[105%] top-[-60%] w-[10rem] bg-[#919eab14] rounded-xl"
+                            }`}
+                          >
                             {item.subItems.map((subItem, subIndex) => {
                               const subPath = `${path}-${subIndex}`; // Unique path for each submenu item
 
@@ -271,44 +246,62 @@ export default function Layout({ children }) {
                                         toggleMenuState(subPath);
                                     }}
                                   >
-                                  <hr className="w-[10px]"/>
+                                    <hr className="w-[10px]" />
                                     <Link
                                       to={subItem.url}
-                                      className={`text-sm w-full flex justify-between items-center pr-4 ${menuState[subPath] ? "bg-[#919eab14] px-2 py-2" : "py-2 pl-2" } text-gray-600 hover:bg-[#919eab14] hover:text-gray-900 rounded-md`}
+                                      className={`text-sm  flex justify-between items-center pr-4 ${
+                                        menuState[subPath]
+                                          ? "bg-[#919eab14] px-2 py-2"
+                                          : "py-2 pl-2"
+                                      } text-gray-600 ${
+                                        onMobile ? "w-full" : "w-[90%]"
+                                      } hover:bg-[#919eab14] hover:text-gray-900 rounded-md`}
                                     >
                                       {subItem.label}
-                                    {subItem.subItems && (
-                                      <span className="ml-2 ">
-                                        {menuState[subPath] ? (
-                                          <IoIosArrowUp className="text-gray-500" />
-                                        ) : (
-                                          <IoIosArrowDown className="text-gray-500" />
-                                        )}
-                                      </span>
-                                    )}
+                                      {subItem.subItems && (
+                                        <span className="ml-2 ">
+                                          {menuState[subPath] ? (
+                                            <IoIosArrowUp className="text-gray-500" />
+                                          ) : (
+                                            <IoIosArrowDown className="text-gray-500" />
+                                          )}
+                                        </span>
+                                      )}
                                     </Link>
                                   </div>
                                   {/* Render Nested Subitems */}
-                                  {menuState[subPath] &&
-                                    subItem.subItems &&
-                                    subItem.subItems.map(
-                                      (nestedItem, nestedIndex) => (
-                                        <ul
-                                          key={nestedIndex}
-                                          className="ml-4 flex items-center border-l-2 border-gray-300 w-full"
-                                        >
-                                        <hr className="w-[10px]"/>
-                                          <li className="w-[80%]">
-                                            <Link
-                                              to={nestedItem.url}
-                                              className="block pl-2 w-full text-sm text-gray-600 hover:bg-[#919eab14] hover:text-gray-900 rounded-md py-2"
-                                            >
-                                              {nestedItem.label}
-                                            </Link>
-                                          </li>
-                                        </ul>
-                                      )
-                                    )}
+                                  <div
+                                    className={`bg-[#919eab14] ${
+                                      onMobile ? null : "absolute left-[100%] ml-4 top-[-50%] w-full rounded-md "
+                                    }`}
+                                  >
+                                    {menuState[subPath] &&
+                                      subItem.subItems &&
+                                      subItem.subItems.map(
+                                        (nestedItem, nestedIndex) => (
+                                          <ul
+                                            key={nestedIndex}
+                                            className={`ml-4 flex items-center ${
+                                              onMobile
+                                                ? "border-l-2 w-full"
+                                                : null
+                                            }  border-gray-300 w-full `}
+                                          >
+                                            {onMobile ? (
+                                              <hr className="w-[10px]" />
+                                            ) : null}
+                                            <li className="w-[80%]">
+                                              <Link
+                                                to={nestedItem.url}
+                                                className="block pl-2 w-full text-sm text-gray-600 hover:bg-[#919eab14] hover:text-gray-900 rounded-md py-2"
+                                              >
+                                                {nestedItem.label}
+                                              </Link>
+                                            </li>
+                                          </ul>
+                                        )
+                                      )}
+                                  </div>
                                 </li>
                               );
                             })}
